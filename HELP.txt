@@ -1,0 +1,1 @@
+If you ever find yourself in need of assistance, type "hint" in the terminal
