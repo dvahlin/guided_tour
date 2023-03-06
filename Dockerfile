@@ -13,7 +13,9 @@ RUN useradd -ms /bin/bash ctf
 COPY HELP.txt /home/ctf/HELP.txt
 COPY work /home/ctf/work
 COPY ctf.py /home/ctf/ctf.py
+COPY challenge.json /home/ctf/challenge.json
 COPY bashrc /home/ctf/.bashrc
+COPY starting.sh /home/ctf/starting.sh
 COPY tmux.conf /home/ctf/.tmux.conf
 RUN chown -R ctf:ctf /home/ctf/work
 #RUN su ctf
