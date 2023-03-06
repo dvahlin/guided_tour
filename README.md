@@ -1,7 +1,7 @@
 # guided_tour
 Mini framework for education
 
-
+```
 Build:
 podman build -t "linux-ctf-container" .
 Run:
@@ -10,10 +10,10 @@ Enter:
 podman exec -it --user ctf linux-ctf /bin/bash
 Quit:
 podman container stop linux-ctf
-
+```
 # in container RUN... 
-su ctf
-tmux attach 
+
+```tmux attach```
 
 GLHF
 
