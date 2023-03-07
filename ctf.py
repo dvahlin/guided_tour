@@ -40,7 +40,17 @@ def main():
                     open("/home/ctf/.bash_history", "w").close()
 
             except IndexError:
-                print("VICTORY!")
+                print(r""" 
+                             _|      _|  _|              _|                                    
+                             _|      _|        _|_|_|  _|_|_|_|    _|_|    _|  _|_|  _|    _|  
+                             _|      _|  _|  _|          _|      _|    _|  _|_|      _|    _|  
+                               _|  _|    _|  _|          _|      _|    _|  _|        _|    _|  
+                                 _|      _|    _|_|_|      _|_|    _|_|    _|          _|_|_|  
+                                                                                           _|  
+                                                                                       _|_|    
+                            
+                            """)                       
+                os.system("sleep 5 && killall -u ctf")
                 break
 
 if __name__ == '__main__':

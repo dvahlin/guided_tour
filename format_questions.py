@@ -3,11 +3,6 @@ import os
 
 challenges = [
     {
-        "question": "You will now test your linux-fu!",
-        "command" : "ls", 
-        "hint" : "LiSt"
-    },
-    {
         "question": "List the content in this folder",
         "command" : "ls", 
         "hint" : "LiSt"
@@ -36,26 +31,6 @@ challenges = [
         "question": "I think there is a hidden copy, find it",
         "command" : "ls -la", 
         "hint" : "LiSt with flags"
-    },
-    {
-        "question": "Make a copy of the hidden file in the current folder, name it random.txt",
-        "command": "cp .hidden_random.txt random.txt",
-        "hint": "CoPy?",
-    },
-    {
-        "question": "Make flagme executable",
-        "command": "chmod +x flagme",
-        "hint": "man chmod",
-    },
-    {
-        "question": "Run flagme and decode the message and run echo flag{value}",
-        "command": "echo \"flag{encoded_or_decoded_not_encrypted}\"",
-        "hint": "execute me ./now, and is that the base?",
-    },
-    {
-        "question": "Find the hidden FLAG in in_plain_sight and run echo flag{value} ",
-        "command": "echo \"flag{strings_pipe_grep?}\"",
-        "hint": "grep for it!",
     },
 
 ]
