@@ -1,24 +1,22 @@
 # guided_tour
 Mini framework for education
 
+# Starting
+
 ```
 Build:
 podman build -t "linux-ctf-container" .
 Run:
-podman run --rm -it -e COLUMNS="$(tput cols)" -e LINES="$(tput lines)" --name linux-ctf -d -it linux-ctf-container:latest 
-Enter:
-podman exec -it --user ctf linux-ctf /bin/bash
-Quit:
-podman container stop linux-ctf
+podman run --rm -it -e COLUMNS="$(tput cols)" -e LINES="$(tput lines)" --name linux-ctf -it linux-ctf-container:latest 
 ```
-# in container RUN... 
-
-```tmux attach```
 
 GLHF
 
+# Development
+```
+podman run --rm -it -e COLUMNS="$(tput cols)" -e LINES="$(tput lines)" --name linux-ctf -d -it linux-ctf-container:latest 
+podman exec -it --user ctf linux-ctf /bin/bash
+```
 
 # Todo... 
-- make tmux attach when entering container with kept variables
 - adjust for autocompletion on tasks
-- Add killevent when "finished"

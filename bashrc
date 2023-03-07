@@ -18,5 +18,5 @@ export PATH
 # User specific aliases and functions
 #PROMPT_COMMAND='history -a'
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-export hint=""
+alias hint="true"
 set -o ignoreeof
