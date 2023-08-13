@@ -3,13 +3,17 @@ import json
 import os
 import re
 import select
+import base64
 from alive_progress import alive_bar
 from re import search
 
 def main():
-    with open("/home/ctf/challenge.json") as db:
-        challenges = json.load(db)
-
+    with open("/home/ctf/challenge.json", "r") as f:
+        encoded_data = f.read()
+    
+    decoded_data = base64.b64decode(encoded_data)
+    challenges = json.loads(decoded_data)
+    
     f = subprocess.Popen(["tail", "-F", "/var/tmp/ctf.log"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     with alive_bar(
@@ -27,10 +31,15 @@ def main():
                     color = "\033[1;36m \n"
                     print(current["question"] + color)
                     current["display_question"] = True
-                 # Check if there's new data available to read
-                 #   print("Waiting for new data...")
+                # Check if there's new data available to read
+                #   print("Waiting for new data...")
                 if select.select([f.stdout], [], [], 1.0)[0]:
-                    line = f.stdout.readline().decode("utf-8").strip()
+                    try:
+                        line = f.stdout.readline().decode("utf-8").strip()
+                    except UnicodeDecodeError:
+                        # Handle the error for reading binary
+                        continue
+
                     #print("Received data: ", line) 
                     if search("hint", line):
                         color = "\033[1;33m \n"

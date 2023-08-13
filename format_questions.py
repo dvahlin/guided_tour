@@ -1,5 +1,6 @@
 import json
 import os
+import base64
 
 challenges = [
     {
@@ -33,7 +34,7 @@ challenges = [
         "hint" : "LiSt with flags"
     },
     {
-        "question": "Fix so the program \"motivation\" so it can run on the system, then run the program",
+        "question": "Fix the program \"motivation\" so it can run on the system, then run the program",
         "flag" : "Ready Player One", 
         "hint" : "chmod"
     },
@@ -53,7 +54,7 @@ challenges = [
         "hint" : "find | wc -l"
     },
     {
-        "question": "In the folder maze there is a file that is larger then 241 bytes but smaller then 245 bytes. To proceed you need to type \"echo \"filename\" | rev\" in the terminal",
+        "question": "In the folder maze there is a file that is larger than 241 bytes but smaller than 245 bytes. To proceed you need to type \"echo \"filename\" | rev\" in the terminal",
         "flag" : "txt.l6aPZGXIxU", 
         "hint" : "find size"
     },
@@ -85,5 +86,15 @@ challenges = [
 
 ]
 
-with open("challenge.json","w") as f:
-    json.dump(challenges,f)
+#with open("challenge.json","w") as f:
+#    json.dump(challenges,f)
+challenges_str = json.dumps(challenges)
+
+# Encode the string to bytes
+challenges_bytes = challenges_str.encode('utf-8')
+
+# Base64 encode the bytes
+encoded_data = base64.b64encode(challenges_bytes)
+
+with open("challenge.json", "wb") as f:  # Note the 'wb' for write bytes
+    f.write(encoded_data)
