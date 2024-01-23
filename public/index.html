@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Terminal</title>
+  <link rel="stylesheet" href="/xterm.css" />
+  <script src="/xterm.js"></script>
+</head>
+<body>
+    <div id="terminal" style="width: 100%; height: 100%;"></div>
+  
+
+
+<script>
+  const term = new Terminal();
+  term.open(document.getElementById('terminal'));
+
+  // Define character dimensions (these should be determined based on actual measurements)
+  const charWidth = 10; // Approximate width of a character in pixels
+  const charHeight = 18; // Approximate height of a character in pixels
+
+  const ws = new WebSocket(`ws://${location.host}`);
+
+  ws.onopen = () => {
+    // When the WebSocket connection is open, send the initial size
+    resizeTerminal();
+  };
+
+  ws.onmessage = (event) => {
+    term.write(event.data);
+  };
+
+  function calculateSize() {
+    const terminalContainer = document.getElementById('terminal');
+    const cols = Math.floor(terminalContainer.offsetWidth / charWidth);
+    const rows = Math.floor(terminalContainer.offsetHeight / charHeight);
+    return { cols, rows };
+  }
+
+  // Resize the terminal to fit the window
+  function resizeTerminal() {
+    const { cols, rows } = calculateSize();
+    term.resize(cols, rows);
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ action: 'resize', cols: cols, rows: rows }));
+    }
+  }
+
+  // Send data to the server for terminal input
+  term.onData((data) => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ action: 'input', data: data }));
+    }
+  });
+
+  // Handle the terminal resize on window resize
+  window.addEventListener('resize', resizeTerminal);
+
+  // Call resizeTerminal to set the initial size
+  resizeTerminal();
+</script>
+
+
+</body>
+</html>

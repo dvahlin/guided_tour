@@ -49,12 +49,12 @@ challenges = [
         "hint" : "find/ls | wc -l"
     },
     {
-        "question": "In the folder maze there are several files.. how many are larger then 250 bytes?",
+        "question": "In the folder maze there are several files.. how many are larger than 250 bytes?",
         "flag" : "85", 
         "hint" : "find | wc -l"
     },
     {
-        "question": "In the folder maze there is a file that is larger than 241 bytes but smaller than 245 bytes. To proceed you need to type \"echo \"filename\" | rev\" in the terminal",
+        "question": "In the folder maze there is a file that is larger than 241 bytes but smaller than 245 bytes. To proceed you need to print it backwards on the terminal",
         "flag" : "txt.l6aPZGXIxU", 
         "hint" : "find size"
     },
@@ -64,7 +64,7 @@ challenges = [
         "hint" : "md5sum"
     },
     {
-        "question": "How many people live in San Francisco? feel free to use the tool of your choosing, but for coming adventures AWK might be a good thing to start with. To proceed type \"echo I am number <digit>\" in the terminal",
+        "question": "How many people live in San Francisco? feel free to use the tool of your choosing, but for coming adventures AWK might be a good thing to start with. To proceed type (echo \"I am number <digit>\") in the terminal",
         "flag" : "I am number 4", 
         "hint" : "tool | wc -l or AWK, for flag.. echo \"city\" | rev"
     },
