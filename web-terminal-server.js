@@ -24,23 +24,24 @@ wss.on('connection', (ws) => {
     env: process.env
   });
 
-  ws.on('message', message => {
+  ws.onmessage = (event) => {
     try {
-      const msg = JSON.parse(message);
+      const msg = JSON.parse(event.data);
       if (msg.action === 'resize') {
         ptyProcess.resize(msg.cols, msg.rows);
       } else if (msg.action === 'input') {
-        // Make sure you only write to the ptyProcess here and not elsewhere
         ptyProcess.write(msg.data);
       }
+      // No need to send back any response to the resize or input commands
     } catch (e) {
-      // Handle non-JSON input data
-      ptyProcess.write(message);
+      // If it's not JSON, it's regular terminal data, write it to the pty
+      ptyProcess.write(event.data);
     }
-  });
-	
+  };
+
   ptyProcess.onData(data => {
-    ws.send(data);
+    // Only send back the terminal output, not the resize commands
+    ws.send(JSON.stringify({ action: 'output', data: data }));
   });
 
   ws.on('close', () => {
