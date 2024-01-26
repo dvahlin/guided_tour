@@ -5,7 +5,7 @@ RUN yum update -y && \
     yum install -y tmux util-linux ncurses binutils psmisc procps strace python3-pip util-linux nodejs gcc-c++ make
 
 # Install pip3 packages
-RUN pip3 install --no-cache-dir alive-progress
+RUN pip3 install --no-cache-dir alive-progress pyfiglet
 
 
 # Add user
@@ -34,7 +34,7 @@ COPY bashrc /home/ctf/.bashrc
 COPY tmux.conf /home/ctf/.tmux.conf
 
 #Permissions
-RUN chown -R ctf:ctf /home/ctf/work
+RUN chown -R ctf:ctf /home/ctf/
 
 # Exose Web
 EXPOSE 3000

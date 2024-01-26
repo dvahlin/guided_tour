@@ -4,8 +4,9 @@ import os
 import re
 import select
 import base64
-from alive_progress import alive_bar
+from alive_progress import alive_bar, config_handler
 from re import search
+import pyfiglet
 
 def main():
     with open("/home/ctf/challenge.json", "r") as f:
@@ -19,7 +20,7 @@ def main():
     with alive_bar(
         len(challenges),
         title="Progress",
-        bar="checks",
+        bar="classic",
         stats=False,
         elapsed=False,
     ) as bar:
@@ -28,40 +29,28 @@ def main():
                 current = challenges[0]
                 if "display_question" not in current.keys():
                     os.system('cls||clear')
-                    color = "\033[1;36m \n"
-                    print(current["question"] + color)
+                    header = pyfiglet.figlet_format("CTF Challenge", font="slant")
+                    print("\033[1;34m" + header + "\033[0m")  # Blue color
+                    print("\033[1;36m" + current["question"] + "\033[0m")  # Cyan color
                     current["display_question"] = True
-                # Check if there's new data available to read
-                #   print("Waiting for new data...")
-                if select.select([f.stdout], [], [], 1.0)[0]:
+
+                if select.select([f.stdout], [], [], 0.5)[0]:
                     try:
                         line = f.stdout.readline().decode("utf-8").strip()
                     except UnicodeDecodeError:
-                        # Handle the error for reading binary
                         continue
 
-                    #print("Received data: ", line) 
                     if search("hint", line):
-                        color = "\033[1;33m \n"
-                        print(current["hint"] + color)
+                        print("\033[1;33m" + current["hint"] + "\033[0m")  # Yellow color
 
                     flag_pattern = re.compile(''.join(current["flag"]))
                     if flag_pattern.search(line):
-                    #if search(''.join(current["flag"]), line):
                         challenges.pop(0)
                         bar()
                         open("/home/ctf/.bash_history", "w").close()
             except IndexError:
-                print(r""" 
-                             _|      _|  _|              _|                                    
-                             _|      _|        _|_|_|  _|_|_|_|    _|_|    _|  _|_|  _|    _|  
-                             _|      _|  _|  _|          _|      _|    _|  _|_|      _|    _|  
-                               _|  _|    _|  _|          _|      _|    _|  _|        _|    _|  
-                                 _|      _|    _|_|_|      _|_|    _|_|    _|          _|_|_|  
-                                                                                           _|  
-                                                                                       _|_|    
-                            
-                            """)                       
+                footer = pyfiglet.figlet_format("Victory!", font="univers")
+                print("\033[1;31m" + footer + "\033[0m")  # Red color
                 os.system("sleep 5 && killall -u ctf")
                 break
 
