@@ -7,11 +7,15 @@ Mini framework for education
 Build:
 podman build -t "linux-ctf-container" .
 Run:
-podman run -p 3000:3000 linux-ctf-container```
+podman run -p 3000:3000 linux-ctf-container
+```
+
 
 GLHF
 
-# Development
+
+
+## Development
 ```
 podman run --rm -it -e COLUMNS="$(tput cols)" -e LINES="$(tput lines)" --name linux-ctf -d -it linux-ctf-container:latest 
 podman exec -it --user ctf linux-ctf /bin/bash
